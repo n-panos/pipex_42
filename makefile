@@ -1,15 +1,17 @@
 
-SRC		= sources/*.c getnextline/*.c
-BNS_SRC	= bonus_sources/*.c
+SRC			= pipex.c parse_path.c utils.c
+OBJS		= ${SRC:.c=.o}
+NAME		= pipex
 
-OBJS	= ${SRC:.c=.o}
-BNS_OBJ	= ${BNS_OBJ:.c=.o}
+BNS_SRC		= bonus_sources/*.c
+BNS_OBJ		= ${BNS_SRC:.c=.o}
+BNS_NAME	= bonus_pipex
 
-CC		= gcc
-CFLAGS	= -Werror -Wall- Wextra -g #-03 -fsamitize=address
-RM		= rm -rf
-NAME	= pipex
-LIBS	= libft/libft.a
+HEADER		= pipex.h
+CC			= gcc
+CFLAGS		= -Werror -Wall -Wextra -g #-03 -fsamitize=address
+RM			= rm -rf
+LIBS		= libft/libft.a
 
 all:		${NAME}
 
@@ -19,15 +21,16 @@ ${NAME}:	${OBJS}
 
 clean:
 					${RM} ${OBJS}
+					${RM} ${BNS_OBJ}
+					${RM} outfile
 
 fclean:		clean
 					make -C libft fclean
-					${RM} ${NAME}
 
 re:			fclean all
 
 bonus:
 					make -C libft
-					${CC} ${CFLAGS} ${BNS_OBJ} ${LIBS} -o ${NAME}
+					${CC} ${CFLAGS} ${BNS_OBJ} ${LIBS} -o ${BNS_NAME}
 
 .PHONY: clean all fclean re
